@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   grim_onlooker.c                                    :+:      :+:    :+:   */
+/*   join_threads.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/28 10:47:22 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/28 10:47:24 by ipavlov          ###   ########.fr       */
+/*   Created: 2025/02/28 12:18:14 by ipavlov           #+#    #+#             */
+/*   Updated: 2025/02/28 16:31:50 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include"./philosophers.h"
 
-void *grim_onlooker()
-{
-	
-	return NULL;
+int	join_threads(t_manager *manager)
+{	
+	int i;
+	int n;
+
+	n = manager->nbr_philo;
+	i = 0;
+	while (i < n)
+	{
+		pthread_join(manager->ptr_to_bodies[i], NULL);
+		i++;
+	}
+	pthread_join(manager->grim_onlooker, NULL);
+	free(manager->ptr_to_bodies);
+	return (0);
 }

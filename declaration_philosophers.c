@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_philosophers.c                              :+:      :+:    :+:   */
+/*   declaration_philosophers.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
+/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:04:33 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/25 22:32:08 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/02/28 11:56:18 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_philo(t_philo *arr_philo, t_manager *manager, int i)
 	arr_philo->time_to_sleep = manager->time_to_sleep;
 	arr_philo->num_of_meals = manager->num_of_meals;
 	arr_philo->phil_dead = manager->dead;
-	arr_philo->time_from_last_meal =  0;//maybe set the current time?
+	arr_philo->time_from_last_meal =  get_time();
 	arr_philo->left_f = &manager->forks[i];
 	arr_philo->right_f = &manager->forks[(i + 1) % manager->nbr_philo];
 	arr_philo->manager = manager;
@@ -33,7 +33,10 @@ int	declaration_philosophers(t_manager *manager)
 
 	arr_philo = (t_philo *)malloc(manager->nbr_philo * sizeof(t_philo));
 	if (arr_philo == NULL)
+	{
+		printf_error(3);
 		return (0);
+	}
 	i = 0;
 	while (i < manager->nbr_philo)
 	{
