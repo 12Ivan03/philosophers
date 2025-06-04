@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:05:05 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/04 14:29:32 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/04 14:49:28 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	main(int argc, char *argv[])
 	// printf("6\n");
 	join_threads(&manager);
 	// free the manager shit things inside.
-// printf("manager nbr_philo : %d\n", manager.nbr_philo);
 
 	// printf the created array of philos
 	int i = 0;
