@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/28 17:49:42 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/04 14:25:44 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include <philosophers.h>
 
 int	take_right_fork(t_philo *philo)
 {
@@ -35,7 +35,7 @@ int	take_fork(t_philo *philo)
 		take_right_fork(philo);
 		take_left_fork(philo);
 	}
-	else 
+	else
 	{
 		//take first left fort;
 		take_left_fork(philo);
@@ -56,12 +56,16 @@ void *routine(void *catch_philo)
 
 	philo = (t_philo *)catch_philo;
 	pthread_mutex_lock(&philo->manager->printf);
-	
+
 	printf("philo Id: %d\n",philo->philo_id);
+	printf("philo time to die: %d\n", philo->time_to_die);
 
 	take_fork(philo);
 
-	
 	pthread_mutex_unlock(&philo->manager->printf);
+	// sleep (5);
+	// pthread_mutex_lock(&philo->personal_mutex);
+	// philo->phil_dead = 1;
+	// pthread_mutex_unlock(&philo->personal_mutex);
 	return NULL;
 }

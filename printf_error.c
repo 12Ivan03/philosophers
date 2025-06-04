@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   printf_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:30:15 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/28 11:55:56 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/04 09:33:28 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include <philosophers.h>
 
 void	printf_error(int i)
 {

@@ -115,10 +115,10 @@ int main() {
 // mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * nbr_ph);
 // pthread_mutex_t	mutex2;
 // mutex = &mutex2;
-// pthread_t 
+// pthread_t
 
 
-	
+
 	// // check the info correctness...
 	// printf("manager nbr of philosophers: %d\n", manager.nbr_philo);
 	// printf("manager time to die: %d\n", manager.time_to_die);

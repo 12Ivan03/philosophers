@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   join_threads.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:18:14 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/28 16:31:50 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/04 14:29:58 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"./philosophers.h"
+#include <philosophers.h>
 
 int	join_threads(t_manager *manager)
-{	
+{
 	int i;
 	int n;
 

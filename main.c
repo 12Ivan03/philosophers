@@ -3,32 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:05:05 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/28 17:51:24 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/04 14:29:32 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include <philosophers.h>
 
 int	main(int argc, char *argv[])
 {
 	t_manager manager;
 
+	// printf("1\n");
 	if (!check_argv(argc, argv))
 		return (1);
+	// printf("2\n");
 	if (!declaration_manager(&manager, argc, argv))
 		return (1);
+	// printf("3\n");
 	if (!init_mutex(&manager))
 		return (1);
+	// printf("4\n");
 	if (!declaration_philosophers(&manager))
 		return (1);
+	// printf("5\n");
 	if (!create_threads(&manager))
 		return (1);
+	// printf("6\n");
 	join_threads(&manager);
 	// free the manager shit things inside.
-
+// printf("manager nbr_philo : %d\n", manager.nbr_philo);
 
 	// printf the created array of philos
 	int i = 0;

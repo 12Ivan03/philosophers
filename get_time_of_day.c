@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_time_of_day.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:15 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/28 11:54:36 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/04 09:33:43 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include <philosophers.h>
 
 unsigned int	get_time(void)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:05:37 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/25 14:07:15 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/04 09:33:21 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include <philosophers.h>
 
 int	ft_atol(const char *nptr)
 {

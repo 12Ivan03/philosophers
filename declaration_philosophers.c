@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   declaration_philosophers.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:04:33 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/28 11:56:18 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/04 14:01:17 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include <philosophers.h>
 
 void	init_philo(t_philo *arr_philo, t_manager *manager, int i)
 {
@@ -26,24 +26,60 @@ void	init_philo(t_philo *arr_philo, t_manager *manager, int i)
 	arr_philo->manager = manager;
 }
 
+void	clear_personal_threads(t_manager *manager, int i)
+{
+	t_philo *philo;
+
+	philo = manager->arr_of_philos;
+	while(i >= 0)
+	{
+		pthread_mutex_destroy(&philo[i].personal_mutex);
+		i--;
+	}
+	clean_helper(manager->forks, manager->nbr_philo - 1, manager);
+}
+
+int	init_personal_mutex_in_philo(t_manager *manager)
+{
+	int i;
+
+	i = 0;
+	// printf("4.3.1\n");
+	while(i < manager->nbr_philo)
+	{
+		if (pthread_mutex_init(&manager->arr_of_philos[i].personal_mutex, NULL) != 0)
+		{
+			// printf("4.3.1 - %d\n", i);
+			clear_personal_threads(manager, i);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	declaration_philosophers(t_manager *manager)
 {
 	t_philo	*arr_philo;
 	int		i;
-
+	// printf("4.1\n");
 	arr_philo = (t_philo *)malloc(manager->nbr_philo * sizeof(t_philo));
 	if (arr_philo == NULL)
 	{
 		printf_error(3);
 		return (0);
 	}
+	// printf("4.2\n");
 	i = 0;
 	while (i < manager->nbr_philo)
 	{
 		init_philo(&arr_philo[i], manager, i);
 		i++;
 	}
+	// printf("4.3\n");
 	manager->arr_of_philos = arr_philo;
+	if (init_personal_mutex_in_philo(manager))
+		return (0);
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:08:32 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/28 17:44:52 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/04 13:55:42 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_philo
 	int				num_of_meals;
 	int				phil_dead;
 	int				time_from_last_meal;// from the end of their meal.
+	pthread_mutex_t	personal_mutex;
 	pthread_mutex_t	*left_f;
 	pthread_mutex_t	*right_f;
 	t_manager		*manager;
@@ -57,11 +58,17 @@ int				declaration_philosophers(t_manager *manager);
 int				create_threads(t_manager *manager);
 int				init_mutex(t_manager *manager);
 void			*routine(void *philo);
-void			*grim_onlooker();
+void			*grim_onlooker(void *manager);
+int				join_threads(t_manager *manager);
+
+// lib functions
 int				ft_atol(const char *nptr);
 int				ft_isdigit(char *argv);
 unsigned int	get_time();
-void			printf_error(int i);
-int				join_threads(t_manager *manager);
 
+// cleaner functions
+void			clean_helper(pthread_mutex_t *arr, int i, t_manager *manager);
+
+// error handler
+void			printf_error(int i);
 #endif

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_threads.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:40 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/02/28 16:34:07 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/04 14:47:41 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include <philosophers.h>
 
 void	clean_create(pthread_t *bodies, int *i)
 {
@@ -34,7 +34,7 @@ int	create_threads(t_manager *manager)
 	i = 0;
 	while (i < n)
 	{
-		if (pthread_create(&bodies[i], NULL, routine, \
+		if (pthread_create(&bodies[i], NULL, &routine, \
 			&manager->arr_of_philos[i]) != 0)
 		{
 			clean_create(bodies, &i);
@@ -42,7 +42,8 @@ int	create_threads(t_manager *manager)
 		}
 		i++;
 	}
-	if (pthread_create(&manager->grim_onlooker, NULL, grim_onlooker, manager) != 0)
+	if (pthread_create(&manager->grim_onlooker, NULL, \
+		&grim_onlooker, manager) != 0)
 	{
 		clean_create(bodies, &i);
 		pthread_join(manager->grim_onlooker, NULL);

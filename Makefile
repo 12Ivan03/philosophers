@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Iinclude -Wall -Wextra -Werror
 CLIB = -c
 
 SRC_FILES = ./main.c \
@@ -13,7 +13,7 @@ SRC_FILES = ./main.c \
 			./grim_onlooker.c \
 			./get_time_of_day.c \
 			./printf_error.c \
-			./join_threads.c 
+			./join_threads.c
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
