@@ -6,22 +6,11 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:40 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/04 14:47:41 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/06 12:22:12 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
-
-void	clean_create(pthread_t *bodies, int *i)
-{
-	while ((*i) >= 0)
-	{
-		pthread_join(bodies[(*i)], NULL);
-		(*i)--;
-	}
-	free(bodies);
-	printf("Error creating threads\n");
-}
 
 int	create_threads(t_manager *manager)
 {
@@ -37,7 +26,7 @@ int	create_threads(t_manager *manager)
 		if (pthread_create(&bodies[i], NULL, &routine, \
 			&manager->arr_of_philos[i]) != 0)
 		{
-			clean_create(bodies, &i);
+			clean_personal_threads(bodies, &i);
 			return (0);
 		}
 		i++;
@@ -45,7 +34,7 @@ int	create_threads(t_manager *manager)
 	if (pthread_create(&manager->grim_onlooker, NULL, \
 		&grim_onlooker, manager) != 0)
 	{
-		clean_create(bodies, &i);
+		clean_personal_threads(bodies, &i);
 		pthread_join(manager->grim_onlooker, NULL);
 		return (0);
 	}

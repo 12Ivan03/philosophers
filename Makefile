@@ -10,10 +10,13 @@ SRC_FILES = ./main.c \
 			./declaration_philosophers.c \
 			./create_threads.c \
 			./routine.c \
+			./routine_helper.c \
 			./grim_onlooker.c \
 			./get_time_of_day.c \
 			./printf_error.c \
-			./join_threads.c
+			./join_threads.c \
+			./free/clear_mutex.c \
+			./get_info_mutex.c 
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

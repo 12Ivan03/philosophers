@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:32:26 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/04 14:09:57 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/06 19:18:36 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	init_manager(t_manager *manager)
 	manager->time_to_eat = 0;
 	manager->time_to_sleep = 0;
 	manager->num_of_meals = 0;
+	manager->finished_meals_by_all = 0;
+	manager->start_time = get_time();
 	manager->dead = 0;
 	manager->forks = NULL;
 	manager->arr_of_philos = NULL;

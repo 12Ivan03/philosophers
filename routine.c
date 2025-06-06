@@ -6,36 +6,11 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/04 20:11:01 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/06 19:42:17 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
-
-// int	take_right_fork(t_philo *philo)
-// {
-// 	pthread_mutex_lock(philo->right_f);
-// 	printf("philo right: %p\n",philo->right_f);
-// 	return (1);
-// }
-
-// int	take_left_fork(t_philo *philo)
-// {
-// 	if (pthread_mutex_lock(philo->left_f) != 0)
-// 		return (0);
-// 	if ()
-
-// 		printf("philo left: %p\n",philo->left_f);
-// 	return (1);
-// }
-
-void	printf_forks(t_philo *philo)
-{
-
-	pthread_mutex_lock(&philo->manager->printf);
-	printf("philo ID: %d: has taken both forks\n",  philo->philo_id);
-	pthread_mutex_unlock(&philo->manager->printf);
-}
 
 int	take_fork(t_philo *philo)
 {
@@ -48,7 +23,6 @@ int	take_fork(t_philo *philo)
 			pthread_mutex_unlock(philo->right_f);
 			return (0);
 		}
-		printf_forks(philo);
 	}
 	else
 	{
@@ -59,61 +33,102 @@ int	take_fork(t_philo *philo)
 			pthread_mutex_unlock(philo->left_f);
 			return (0);
 		}
-		printf_forks(philo);
 	}
+	printf_forks(philo);
 	return (1);
 }
 
-// int	philo_eat(t_philo *philo)
-// {
-// 	int	time_to_eat;
+int	philo_eat(t_philo *philo)
+{
+	time_t	time_to_eat;
 
-// 	time_to_eat = philo->time_to_eat;
-// 	philo->time_from_last_meal = get_time();
-// 	usleep(time_to_eat);
-// 	pthread_mutex_unlock(philo->right_f);
-// 	pthread_mutex_unlock(philo->left_f);
-// 	return (0);
-// }
+	// pthread_mutex_lock(&philo->manager->printf);
+	// printf("philo ID: %d: start eating time: %d\n\n",  philo->philo_id, philo->time_from_last_meal);
+	// pthread_mutex_unlock(&philo->manager->printf);
+	time_to_eat =get_time_to_eat(philo);
+	pthread_mutex_lock(&philo->personal_mutex);
+	philo->time_from_last_meal = get_time();
+	philo->num_of_meals++;
+	pthread_mutex_unlock(&philo->personal_mutex);
+
+	pthread_mutex_lock(&philo->manager->printf);
+	printf("philo ID: %d: is eating: %ld\n",  philo->philo_id, philo->time_from_last_meal);
+	pthread_mutex_unlock(&philo->manager->printf);
+
+	usleep(time_to_eat);
+
+	pthread_mutex_unlock(philo->right_f);
+	pthread_mutex_unlock(philo->left_f);
+	// pthread_mutex_lock(&philo->manager->printf);
+	// printf("philo ID: %d: left forks time: %ld\n\n",  philo->philo_id, philo->time_from_last_meal);
+	// pthread_mutex_unlock(&philo->manager->printf);
+	return (0);
+}
+
+void	philo_sleep(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->manager->printf);
+	printf("philo ID: %d: is sleeping\n\n",  philo->philo_id);
+	pthread_mutex_unlock(&philo->manager->printf);
+	usleep(philo->time_to_sleep);
+//	unsigned long start = get_time();
+//	while (get_time() - start < philo->time_to_sleep)
+//	{
+//		if (check_if_dead(philo)) // check against time_to_die
+//			break;
+//		usleep(1000); // sleep in 1ms steps
+//	}
+
+}
+
+void	philo_think(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->manager->printf);
+	printf("philo ID: %d: is thinking: %ld\n\n",  philo->philo_id, get_time());
+	pthread_mutex_unlock(&philo->manager->printf);
+	// of time to sleep ot just 100 microseconds... or nothing
+	usleep(100);
+}
+
+int	exit_thread(t_philo *philo)
+{
+	if (philo_dead_f(philo) == 1)
+		return (1);
+	if (global_grim_dead_f(philo->manager) == 1)
+		return (1);
+	return (0);
+}
 
 void *routine(void *catch_philo)
 {
 	t_philo		*philo;
-	t_manager	*grim_man;
 
 	philo = (t_philo *)catch_philo;
-	grim_man = (t_manager *)(philo->manager);
-
-	// pthread_mutex_lock(&philo->manager->printf);
-	// printf("philo Id: %d\n",philo->philo_id);
-	// printf("philo time to die: %d\n", philo->time_to_die);
-	// printf("grim_man->dead: %d\n\n", grim_man->dead);
-	// pthread_mutex_unlock(&philo->manager->printf);
-
 	int i = 0;
-	while(i < 400)//grim_man->dead != 1) // change it then the logic is down.
+	// to avoid deadlock, the even philosophers will wait a bit before taking the forks
+	if  (philo->philo_id % 2 == 0)
+		usleep(100);
+	while(i < 3 && !philo_meal_allowence(philo))//-->grim_man->dead != 1<--// change it then the logic is down.
 	{
-		//take a fork
-		while (!take_fork(philo))
-			usleep(100);
-
-		// eat
-		usleep(philo->time_to_eat);
-		pthread_mutex_unlock(philo->right_f);
-		pthread_mutex_unlock(philo->left_f);
-
-		// sleep
-		// think
-
-		// check the grim_man->dead if it is == 1
-		if (grim_man->dead == 1)
-			break ;
+		take_fork(philo);
+		if (exit_thread(philo))
+			return (NULL);
+		philo_eat(philo);
+		if (exit_thread(philo))
+			return (NULL);
+		philo_sleep(philo);
+		if (exit_thread(philo))
+			return (NULL);
+		philo_think(philo);
+		if (exit_thread(philo))
+			return (NULL);
 		i++;
 	}
-	// clean the thread and exit
-
-	// pthread_mutex_lock(&philo->personal_mutex);
-	// philo->phil_dead = 1;
-	// pthread_mutex_unlock(&philo->personal_mutex);
 	return (NULL);
 }
+
+// pthread_mutex_lock(&philo->manager->printf);
+// printf("philo Id: %d\n",philo->philo_id);
+// printf("philo time to die: %d\n", philo->time_to_die);
+// printf("grim_man->dead: %d\n\n", grim_man->dead);
+// pthread_mutex_unlock(&philo->manager->printf);
