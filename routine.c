@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/06 19:42:17 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/06 19:48:46 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	philo_eat(t_philo *philo)
 	// pthread_mutex_lock(&philo->manager->printf);
 	// printf("philo ID: %d: start eating time: %d\n\n",  philo->philo_id, philo->time_from_last_meal);
 	// pthread_mutex_unlock(&philo->manager->printf);
-	time_to_eat =get_time_to_eat(philo);
+	time_to_eat = get_time_to_eat(philo);
 	pthread_mutex_lock(&philo->personal_mutex);
 	philo->time_from_last_meal = get_time();
 	philo->num_of_meals++;
@@ -56,6 +56,10 @@ int	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->manager->printf);
 
 	usleep(time_to_eat);
+	// maybe change the meals later....?
+	// pthread_mutex_lock(&philo->personal_mutex);
+	// philo->num_of_meals++;
+	// pthread_mutex_unlock(&philo->personal_mutex);
 
 	pthread_mutex_unlock(philo->right_f);
 	pthread_mutex_unlock(philo->left_f);
@@ -86,7 +90,7 @@ void	philo_think(t_philo *philo)
 	pthread_mutex_lock(&philo->manager->printf);
 	printf("philo ID: %d: is thinking: %ld\n\n",  philo->philo_id, get_time());
 	pthread_mutex_unlock(&philo->manager->printf);
-	// of time to sleep ot just 100 microseconds... or nothing
+	// of time to sleep - 100 microseconds or more or calculate it somehow... or nothing
 	usleep(100);
 }
 

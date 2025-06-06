@@ -1,6 +1,8 @@
 CC = cc
-CFLAGS = -Iinclude -Wall -Wextra -Werror
+CFLAGS = -I./include -Wall -Wextra -Werror
 CLIB = -c
+
+BUILD_PATH = ./build
 
 SRC_FILES = ./main.c \
 			./utils.c \
@@ -16,14 +18,19 @@ SRC_FILES = ./main.c \
 			./printf_error.c \
 			./join_threads.c \
 			./free/clear_mutex.c \
-			./get_info_mutex.c 
+			./get_info_mutex.c
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
+OBJ_FILES := $(OBJ_FILES:%=$(BUILD_PATH)/%)
 
 NAME = philo
 
 all: $(NAME)
+
+$(BUILD_PATH)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o  $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(CLIB) $^ -o $@
