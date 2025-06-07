@@ -12,7 +12,6 @@ int	philo_dead_f(t_philo *philo)
 }
 
 int	global_grim_dead_f(t_manager *manager)
-
 {
 	int	global_dead;
 

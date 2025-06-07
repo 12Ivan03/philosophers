@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   declaration_manager.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
+/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:32:26 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/06 19:18:36 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/07 10:43:40 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_manager(t_manager *manager)
 	manager->dead = 0;
 	manager->forks = NULL;
 	manager->arr_of_philos = NULL;
-	manager->grim_onlooker = NULL;
+	// manager->grim_onlooker = NULL;
 	manager->ptr_to_bodies = NULL;
 }
 

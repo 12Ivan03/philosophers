@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grim_onlooker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
+/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:22 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/06 19:10:38 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/07 12:34:47 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,17 @@ void *grim_onlooker(void *manager)
 	// pthread_mutex_unlock(&grim->printf);
 
 	int i = 0;
-	while (i < grim->nbr_philo)
-	// while (1) or while (grim->dead != 1)
+	// while (i < grim->nbr_philo)
+	while (1  && i < 100) //or while (grim->dead != 1)
 	{
+
+		// check if any of the phios are dead - in a loop 
+		
 		if (get_time() - grim->arr_of_philos[i].time_from_last_meal > grim->arr_of_philos[i].time_to_die)
 		{
-			printf("last mean - current time = %ld > time to die: %ld\n", get_time() - grim->arr_of_philos[i].time_from_last_meal, grim->arr_of_philos[i].time_to_die / 100);
 			pthread_mutex_lock(&grim->printf);
+			printf("last mean - current time = %ld > time to die: %ld\n", get_time() - grim->arr_of_philos[i].time_from_last_meal, grim->arr_of_philos[i].time_to_die / 100);
+			pthread_mutex_unlock(&grim->printf);
 			
 			usleep(1000); // check every 1ms
 		}

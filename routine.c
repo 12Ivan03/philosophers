@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
+/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/06 19:48:46 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/07 12:51:23 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->personal_mutex);
 
 	pthread_mutex_lock(&philo->manager->printf);
-	printf("philo ID: %d: is eating: %ld\n",  philo->philo_id, philo->time_from_last_meal);
+	printf("philo ID: %d: is eating: %ld\n",  philo->philo_id, philo->time_from_last_meal - philo->manager->start_time);
 	pthread_mutex_unlock(&philo->manager->printf);
 
 	usleep(time_to_eat);
@@ -82,7 +82,6 @@ void	philo_sleep(t_philo *philo)
 //			break;
 //		usleep(1000); // sleep in 1ms steps
 //	}
-
 }
 
 void	philo_think(t_philo *philo)

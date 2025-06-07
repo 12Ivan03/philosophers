@@ -7,7 +7,7 @@ void	printf_forks(t_philo *philo)
 	// printf("philo ID: %d: start time: %ld\n",  philo->philo_id, philo->manager->start_time);
 	// printf("philo ID: %d: fork right address: %p\n",  philo->philo_id, philo->right_f);
 	// printf("philo ID: %d: fork left address: %p\n",  philo->philo_id, philo->left_f);
-	printf("philo ID: %d: has taken both forks\n",  philo->philo_id);
+	printf("philo ID: %d: has taken both forks: %ld\n",  philo->philo_id, get_time());
 	pthread_mutex_unlock(&philo->manager->printf);
 }
 
