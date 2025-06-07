@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/07 12:51:23 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/07 23:42:20 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ int	take_fork(t_philo *philo)
 {
 	if (philo->philo_id % 2 == 0)
 	{
-		if (pthread_mutex_lock(philo->right_f) != 0)
-			return (0);
+		pthread_mutex_lock(philo->right_f);
 		if (pthread_mutex_lock(philo->left_f) != 0)
 		{
 			pthread_mutex_unlock(philo->right_f);
@@ -26,8 +25,7 @@ int	take_fork(t_philo *philo)
 	}
 	else
 	{
-		if (pthread_mutex_lock(philo->left_f) != 0)
-			return (0);
+		pthread_mutex_lock(philo->left_f);
 		if (pthread_mutex_lock(philo->right_f) != 0)
 		{
 			pthread_mutex_unlock(philo->left_f);
@@ -42,12 +40,10 @@ int	philo_eat(t_philo *philo)
 {
 	time_t	time_to_eat;
 
-	// pthread_mutex_lock(&philo->manager->printf);
-	// printf("philo ID: %d: start eating time: %d\n\n",  philo->philo_id, philo->time_from_last_meal);
-	// pthread_mutex_unlock(&philo->manager->printf);
 	time_to_eat = get_time_to_eat(philo);
 	pthread_mutex_lock(&philo->personal_mutex);
 	philo->time_from_last_meal = get_time();
+	printf("philo ID: %d: start eating time: %ld\n",  philo->philo_id, philo->time_from_last_meal);
 	philo->num_of_meals++;
 	pthread_mutex_unlock(&philo->personal_mutex);
 
@@ -56,16 +52,10 @@ int	philo_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->manager->printf);
 
 	usleep(time_to_eat);
-	// maybe change the meals later....?
-	// pthread_mutex_lock(&philo->personal_mutex);
-	// philo->num_of_meals++;
-	// pthread_mutex_unlock(&philo->personal_mutex);
 
 	pthread_mutex_unlock(philo->right_f);
 	pthread_mutex_unlock(philo->left_f);
-	// pthread_mutex_lock(&philo->manager->printf);
-	// printf("philo ID: %d: left forks time: %ld\n\n",  philo->philo_id, philo->time_from_last_meal);
-	// pthread_mutex_unlock(&philo->manager->printf);
+
 	return (0);
 }
 
@@ -75,6 +65,8 @@ void	philo_sleep(t_philo *philo)
 	printf("philo ID: %d: is sleeping\n\n",  philo->philo_id);
 	pthread_mutex_unlock(&philo->manager->printf);
 	usleep(philo->time_to_sleep);
+
+	// yes!! get out od the ram  sleep to check if your dead
 //	unsigned long start = get_time();
 //	while (get_time() - start < philo->time_to_sleep)
 //	{
@@ -107,11 +99,11 @@ void *routine(void *catch_philo)
 	t_philo		*philo;
 
 	philo = (t_philo *)catch_philo;
-	int i = 0;
+	// int i = 0;
 	// to avoid deadlock, the even philosophers will wait a bit before taking the forks
 	if  (philo->philo_id % 2 == 0)
-		usleep(100);
-	while(i < 3 && !philo_meal_allowence(philo))//-->grim_man->dead != 1<--// change it then the logic is down.
+		usleep(1000);
+	while(!is_all_dead(philo->manager) && !philo_meal_allowence(philo))// && i < 10)
 	{
 		take_fork(philo);
 		if (exit_thread(philo))
@@ -125,7 +117,7 @@ void *routine(void *catch_philo)
 		philo_think(philo);
 		if (exit_thread(philo))
 			return (NULL);
-		i++;
+		// i++;
 	}
 	return (NULL);
 }
@@ -135,3 +127,12 @@ void *routine(void *catch_philo)
 // printf("philo time to die: %d\n", philo->time_to_die);
 // printf("grim_man->dead: %d\n\n", grim_man->dead);
 // pthread_mutex_unlock(&philo->manager->printf);
+
+
+	// pthread_mutex_lock(&philo->manager->printf);
+	// printf("philo ID: %d: start eating time: %d\n\n",  philo->philo_id, philo->time_from_last_meal);
+	// pthread_mutex_unlock(&philo->manager->printf);
+
+	// pthread_mutex_lock(&philo->manager->printf);
+	// printf("philo ID: %d: left forks time: %ld\n\n",  philo->philo_id, philo->time_from_last_meal);
+	// pthread_mutex_unlock(&philo->manager->printf);

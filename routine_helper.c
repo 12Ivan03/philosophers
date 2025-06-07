@@ -26,8 +26,3 @@ int	philo_meal_allowence(t_philo *philo)
 	}
 	return (0);
 }
-
-// int	is_philo_dead(t_philo *philo)
-// {
-
-// }

@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:08:32 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/06 19:42:34 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/07 22:43:48 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,10 @@ void			printf_forks(t_philo *philo);
 int				global_grim_dead_f(t_manager *manager);
 int				philo_dead_f(t_philo *philo);
 time_t			 get_time_to_eat(t_philo *philo);
+time_t			time_since_last_meal(t_philo *p);
+
+// grim routiine
+void			raise_philo_dead_flag(t_philo *p);
+int				is_all_dead(t_manager *m);
 
 #endif

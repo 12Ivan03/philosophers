@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:05:37 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/04 09:33:21 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/07 23:45:08 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int	ft_atol(const char *nptr)
 	{
 		num = (num * 10) + (nptr[i] - '0');
 		i++;
+		if (neg == -1 && num > 2147483648)
+			return (INT_MIN);
+		else if (neg == 1 && num > 2147483647)
+			return (INT_MAX);
 	}
-	if (neg == -1 && num > 2147483648)
-		return (INT_MIN);
-	else if (neg == 1 && num > 2147483647)
-		return (INT_MAX);
 	return ((int)neg * num);
 }
 

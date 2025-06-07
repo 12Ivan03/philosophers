@@ -14,6 +14,7 @@ SRC_FILES = ./main.c \
 			./routine.c \
 			./routine_helper.c \
 			./grim_onlooker.c \
+			./grim_routine.c \
 			./get_time_of_day.c \
 			./printf_error.c \
 			./join_threads.c \
