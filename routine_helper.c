@@ -13,14 +13,19 @@ void	printf_forks(t_philo *philo)
 
 int	philo_meal_allowence(t_philo *philo)
 {
+	int num_meals_philo;
+
+	pthread_mutex_lock(&philo->personal_mutex);
+	num_meals_philo = philo->num_of_meals;
+	pthread_mutex_unlock(&philo->personal_mutex);
 	if (philo->manager->num_of_meals > 0 && \
-		philo->num_of_meals >= philo->manager->num_of_meals)
+		num_meals_philo >= philo->manager->num_of_meals)
 	{
 		pthread_mutex_lock(&philo->personal_mutex);
 		philo->phil_dead = 1;
 		pthread_mutex_unlock(&philo->personal_mutex);
 		pthread_mutex_lock(&philo->manager->printf);
-		printf("philo ID: %d: has finished eating\n", philo->philo_id);
+		printf("==>philo ID: %d: has finished eating\n", philo->philo_id);
 		pthread_mutex_unlock(&philo->manager->printf);
 		return (1);
 	}
