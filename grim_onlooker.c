@@ -6,7 +6,7 @@
 /*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:22 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/09 11:17:13 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/09 12:16:34 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void *grim_onlooker(void *manager)
 			{
 				pthread_mutex_lock(&grim->printf);
 				grim->dead = 1;
-				printf("grim_onlooker: philo %d dead\n", i);
+				printf("grim_onlooker: philo %d dead ==> time: %ld\n", i, get_time() - grim->start_time);
 				pthread_mutex_unlock(&grim->printf);
 				raise_philo_dead_flag(&grim->arr_of_philos[i]);
 				break ;

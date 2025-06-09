@@ -6,7 +6,7 @@
 /*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/09 12:11:44 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/09 12:15:57 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	philo_eat(t_philo *philo)
 	time_to_eat = get_time_to_eat(philo);
 	pthread_mutex_lock(&philo->personal_mutex);
 	philo->time_from_last_meal = get_time();
-	printf("philo ID: %d: start eating time: %ld // eating time: ==> %ld <==\n",  philo->philo_id, philo->time_from_last_meal, time_to_eat);
+	printf("philo ID: %d: start eating time: %ld // eating time: ==> %ld <==\n", philo->philo_id, philo->time_from_last_meal - philo->manager->start_time, time_to_eat);
 	philo->num_of_meals++;
 	pthread_mutex_unlock(&philo->personal_mutex);
 
