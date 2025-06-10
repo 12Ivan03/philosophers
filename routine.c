@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/10 18:04:46 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/10 20:56:30 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	philo_think(t_philo *philo)
 	printf("%ld philo ID: %d: is thinking\n", get_local_time(philo->manager), philo->philo_id);
 	pthread_mutex_unlock(&philo->manager->printf);
 	// of time to sleep - 100 microseconds or more or calculate it somehow... or nothing
-	// usleep(100);
+	usleep(philo->time_to_sleep / 0.5);
 }
 
 // odd numbers
@@ -123,7 +123,7 @@ void *routine(void *catch_philo)
 	while(!global_grim_dead_f(philo->manager) && !philo_meal_allowence(philo))
 	{
 		// if (philo->manager->nbr_philo % 2 == 1)
-		// 	odd_first_delay(philo);
+		odd_first_delay(philo);
 		// add time to accomudte odd numbers og philos
 		take_fork(philo);
 		if (exit_thread(philo))
