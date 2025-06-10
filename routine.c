@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/10 16:34:47 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/10 18:04:46 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	special_sleep(time_t duration, t_philo *philo)
 	{
 		if (global_grim_dead_f(philo->manager) || philo_dead_f(philo))
 		{
+			// raise_philo_dead_flag(philo);
 			// killer_function(philo->manager);
 			break ;
 		}
@@ -84,8 +85,29 @@ void	philo_think(t_philo *philo)
 	printf("%ld philo ID: %d: is thinking\n", get_local_time(philo->manager), philo->philo_id);
 	pthread_mutex_unlock(&philo->manager->printf);
 	// of time to sleep - 100 microseconds or more or calculate it somehow... or nothing
-	usleep(100);
+	// usleep(100);
 }
+
+// odd numbers
+void	odd_first_delay(t_philo *philo)
+{
+	// calculate how much time is left before dying
+
+	time_t	time_left_to_die;
+
+	time_left_to_die = philo->time_to_die - time_since_last_meal(philo);
+	pthread_mutex_lock(&philo->manager->printf);
+	printf("odd philos [%d]: time left to die: %ld\n", philo->philo_id, time_left_to_die);
+	pthread_mutex_unlock(&philo->manager->printf);
+	if (time_left_to_die >= philo->time_to_eat * 1.5)
+	{
+		pthread_mutex_lock(&philo->manager->printf);
+		printf("=>odd philos [%d]: time left to die: %ld\n", philo->philo_id, time_left_to_die);
+		pthread_mutex_unlock(&philo->manager->printf);
+		usleep(philo->time_to_eat * 1200);
+	}
+}
+// one philo
 
 void *routine(void *catch_philo)
 {
@@ -93,10 +115,15 @@ void *routine(void *catch_philo)
 
 	philo = (t_philo *)catch_philo;
 	// to avoid deadlock, the even philosophers will wait a bit before taking the forks
-	if  (philo->philo_id % 2 == 0)
-		usleep(100);
+	// if (philo->manager->nbr_philo %2 == 1 && philo->philo_id %2 == 1)
+	// 	special_sleep(philo->time_to_eat, philo);
+
+	if  (philo->philo_id % 2 == 1)
+		usleep(200);
 	while(!global_grim_dead_f(philo->manager) && !philo_meal_allowence(philo))
 	{
+		// if (philo->manager->nbr_philo % 2 == 1)
+		// 	odd_first_delay(philo);
 		// add time to accomudte odd numbers og philos
 		take_fork(philo);
 		if (exit_thread(philo))
