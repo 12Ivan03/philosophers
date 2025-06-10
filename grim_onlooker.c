@@ -3,24 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   grim_onlooker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:22 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/09 12:16:34 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/10 15:59:59 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
 
-int	is_all_dead(t_manager *m)
+void	raise_philo_dead_flag(t_philo *p)
 {
-	int	dead;
-
-	dead = 0;
-	pthread_mutex_lock(&m->grim_mutex);
-	dead = m->dead;
-	pthread_mutex_unlock(&m->grim_mutex);
-	return (dead);
+	pthread_mutex_lock(&p->personal_mutex);
+	p->phil_dead = 1;
+	pthread_mutex_unlock(&p->personal_mutex);
 }
 
 int	killer_funcion(t_manager *grim)
@@ -55,18 +51,11 @@ void *grim_onlooker(void *manager)
 
 	i = 0;
 	grim = (t_manager *)manager;
-	// int j = 0;
-	// while (i < grim->nbr_philo)
-	while (!is_all_dead(grim))// && j < 10) //or while (grim->dead != 1)
+	while (!global_grim_dead_f(grim))
 	{
-		// check if any of the phios are dead - in a loop
 		i = 0;
-		while (i < grim->nbr_philo)// && i < 10)
+		while (i < grim->nbr_philo)
 		{
-			// pthread_mutex_lock(&grim->printf);
-			// printf("tiem since last meal checked%d\n",time_since_last_meal(&grim->arr_of_philos[i]) > grim->time_to_die);
-			// pthread_mutex_unlock(&grim->printf);
-
 			if (time_since_last_meal(&grim->arr_of_philos[i]) > grim->time_to_die)
 			{
 				pthread_mutex_lock(&grim->printf);
@@ -76,14 +65,15 @@ void *grim_onlooker(void *manager)
 				raise_philo_dead_flag(&grim->arr_of_philos[i]);
 				break ;
 			}
+			// check the meal allowences of all philos
+			// if ()
 			i++;
 		}
-		if (is_all_dead(grim) == 1)
+		if (global_grim_dead_f(grim) == 1)
 		{
 			killer_funcion(grim);
 			return (NULL);
 		}
-		// j++;
 		usleep(1000); // sleep for a short time to avoid busy waiting
 	}
 
@@ -92,7 +82,30 @@ void *grim_onlooker(void *manager)
 	// printf("grim -> philo %d dead> :%d\n",i ,grim->arr_of_philos[i].phil_dead);
 	// pthread_mutex_unlock(&grim->printf);
 }
+// pthread_mutex_lock(&grim->printf);
+// printf("time_since_last_meal: %ld grim->time_to_die: %d\n", time_since_last_meal(&grim->arr_of_philos[i]), grim->time_to_die);
+// pthread_mutex_unlock(&grim->printf);
 
 	// pthread_mutex_lock(&grim->printf);
 	// printf("\n\nhello from the grim -> %d\n", grim->nbr_philo);
 	// pthread_mutex_unlock(&grim->printf);
+// int	is_all_dead(t_manager *m)
+// {
+// 	int	dead;
+
+// 	dead = 0;
+// 	pthread_mutex_lock(&m->grim_mutex);
+// 	dead = m->dead;
+// 	pthread_mutex_unlock(&m->grim_mutex);
+// 	return (dead);
+// }
+
+// int	is_philo_dead(t_philo *philo)
+// {
+// 	int	info;
+
+// 	pthread_mutex_lock(&philo->personal_mutex);
+// 	info =  philo->phil_dead;
+// 	pthread_mutex_unlock(&philo->personal_mutex);
+// 	return (info);
+// }

@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   get_time_of_day.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:15 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/09 12:13:08 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:41:14 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <philosophers.h>
+
+time_t	get_local_time(t_manager *manager)
+{
+	time_t	current_time;
+
+	current_time = get_time() - manager->start_time;
+	return(current_time);
+}
 
 time_t	get_time(void)
 {

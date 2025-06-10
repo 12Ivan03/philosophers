@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:04:33 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/06 12:38:39 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/10 16:12:28 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_philo(t_philo *arr_philo, t_manager *manager, int i)
 	arr_philo->time_to_eat = manager->time_to_eat;
 	arr_philo->time_to_sleep = manager->time_to_sleep;
 	arr_philo->num_of_meals = manager->num_of_meals;
+	arr_philo->num_of_eaten_meals = 0;
 	arr_philo->phil_dead = manager->dead;
 	arr_philo->time_from_last_meal =  get_time();
 	arr_philo->left_f = &manager->forks[i];

@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:08:32 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/07 22:43:48 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/10 16:33:43 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_philo
 	time_t			time_to_eat;
 	time_t			time_to_sleep;
 	int				num_of_meals;
+	int				num_of_eaten_meals;
 	int				phil_dead;
 	time_t			time_from_last_meal;
 	pthread_mutex_t	personal_mutex;
@@ -85,11 +86,14 @@ void			printf_forks(t_philo *philo);
 // get info functions
 int				global_grim_dead_f(t_manager *manager);
 int				philo_dead_f(t_philo *philo);
+int				exit_thread(t_philo *philo);
+
+// get time functions
 time_t			 get_time_to_eat(t_philo *philo);
 time_t			time_since_last_meal(t_philo *p);
+time_t			get_local_time(t_manager *manager);
 
 // grim routiine
 void			raise_philo_dead_flag(t_philo *p);
-int				is_all_dead(t_manager *m);
 
 #endif
