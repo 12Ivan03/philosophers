@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/10 20:56:30 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/11 09:49:42 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,9 @@ void	odd_first_delay(t_philo *philo)
 	time_t	time_left_to_die;
 
 	time_left_to_die = philo->time_to_die - time_since_last_meal(philo);
-	pthread_mutex_lock(&philo->manager->printf);
-	printf("odd philos [%d]: time left to die: %ld\n", philo->philo_id, time_left_to_die);
-	pthread_mutex_unlock(&philo->manager->printf);
+	// pthread_mutex_lock(&philo->manager->printf);
+	// printf("odd philos [%d]: time left to die: %ld\n", philo->philo_id, time_left_to_die);
+	// pthread_mutex_unlock(&philo->manager->printf);
 	if (time_left_to_die >= philo->time_to_eat * 1.5)
 	{
 		pthread_mutex_lock(&philo->manager->printf);
@@ -122,8 +122,8 @@ void *routine(void *catch_philo)
 		usleep(200);
 	while(!global_grim_dead_f(philo->manager) && !philo_meal_allowence(philo))
 	{
-		// if (philo->manager->nbr_philo % 2 == 1)
-		odd_first_delay(philo);
+		if (philo->manager->nbr_philo % 2 == 1)
+			odd_first_delay(philo);
 		// add time to accomudte odd numbers og philos
 		take_fork(philo);
 		if (exit_thread(philo))
