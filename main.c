@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:05:05 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/11 09:52:43 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/11 21:12:06 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (!create_threads(&manager))
 		return (1);
+	// free the manager all inside. ! if error exit everything and come to here!?
+	// create another functions -->
+	// 1. join all threads
 	join_threads(&manager);
-	// free the manager all inside.
+	// 2. destroy all mutexes
+	// 3. free all dinamic allocated memory.
 
 // <<~>><<~>><<~>><<~>><<~>><<~>><<~>><<~>><<~>><<~>><<~>><<~>><<~>><<~>><<~>>
 	// printf the created array of philos
