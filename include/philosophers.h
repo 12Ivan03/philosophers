@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:08:32 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/10 16:33:43 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/13 18:09:35 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ typedef struct s_philo
 typedef struct s_manager
 {
 	int				nbr_philo;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	time_t			time_to_die;
+	time_t			time_to_eat;
+	time_t			time_to_sleep;
 	int				num_of_meals;
 	int				finished_meals_by_all;
 	int				dead;
@@ -63,7 +63,7 @@ int				create_threads(t_manager *manager);
 int				init_mutex(t_manager *manager);
 void			*routine(void *philo);
 void			*grim_onlooker(void *manager);
-int				join_threads(t_manager *manager);
+// int				join_threads(t_manager *manager);
 
 // lib functions
 int				ft_atol(const char *nptr);
@@ -74,13 +74,17 @@ time_t			get_time();
 void			clean_mutex_forks(pthread_mutex_t *arr, int i);
 void			clean_helper(pthread_mutex_t *arr, int i, t_manager *manager);
 void			clear_personal_mutexes(t_manager *manager, int i);
-void			clean_personal_threads(pthread_t *bodies, int *i);
+void			clean_personal_threads(t_manager *manager, pthread_t *bodies, int *i);
+void			clean_full_manager(pthread_mutex_t *arr, int i, t_manager *manager);
+void			clear_manager_and_philos(t_manager *manager);
+void			free_all(t_manager *manager);
 
 // error handler
-void			printf_error(int i);
+void			p_err(int i);
 
 // routine helper functions
 int				philo_meal_allowence(t_philo *philo);
+void			special_sleep(time_t duration, t_philo *philo);
 void			printf_forks(t_philo *philo);
 
 // get info functions
@@ -89,7 +93,7 @@ int				philo_dead_f(t_philo *philo);
 int				exit_thread(t_philo *philo);
 
 // get time functions
-time_t			 get_time_to_eat(t_philo *philo);
+time_t			get_time_to_eat(t_philo *philo);
 time_t			time_since_last_meal(t_philo *p);
 time_t			get_local_time(t_manager *manager);
 
