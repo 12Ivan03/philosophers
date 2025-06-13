@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/13 18:08:50 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/13 18:13:24 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ int	philo_eat(t_philo *philo)
  	philo->num_of_eaten_meals++;
 	pthread_mutex_unlock(&philo->personal_mutex);
 	pthread_mutex_lock(&philo->manager->printf);
-	printf("%ld %d is eating\n", get_local_time(philo->manager), \
-												philo->philo_id);
+	printf("%ld %d is eating\n", get_local_time(philo->manager), philo->philo_id);
 	pthread_mutex_unlock(&philo->manager->printf);
 	special_sleep(time_to_eat, philo);
 	pthread_mutex_unlock(philo->right_f);

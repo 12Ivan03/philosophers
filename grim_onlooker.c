@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:22 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/10 15:59:59 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/13 18:24:51 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void *grim_onlooker(void *manager)
 			killer_funcion(grim);
 			return (NULL);
 		}
-		usleep(1000); // sleep for a short time to avoid busy waiting
+		usleep(500); // sleep for a short time to avoid busy waiting
 	}
 
 	return (NULL);
