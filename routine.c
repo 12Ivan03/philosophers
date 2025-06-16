@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/16 22:17:28 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/16 22:28:22 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 int	take_fork(t_philo *philo)
 {
 	// before taking a fork check if he is dead
-	if (exit_thread(philo))
-		return (0);
+	// check without it !!!
+	// if (exit_thread(philo))
+	// 	return (0);
 	if (philo->philo_id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_f);
-		// printf take fork
+		printf_forks(philo);
 		if (pthread_mutex_lock(philo->left_f) != 0)
 		{
 			pthread_mutex_unlock(philo->right_f);
@@ -30,6 +31,7 @@ int	take_fork(t_philo *philo)
 	else
 	{
 		pthread_mutex_lock(philo->left_f);
+		printf_forks(philo);
 		if (pthread_mutex_lock(philo->right_f) != 0)
 		{
 			pthread_mutex_unlock(philo->left_f);
@@ -88,10 +90,10 @@ void *routine(void *catch_philo)
 
 	philo = (t_philo *)catch_philo;
 	if (philo->manager->nbr_philo %2 == 0 && philo->philo_id % 2 == 1)
-		usleep(200);
+		usleep(100);
 	while(!global_grim_dead_f(philo->manager) && !philo_meal_allowence(philo))
 	{
-		if (philo->manager->nbr_philo < 10 || philo->manager->nbr_philo % 2 == 1)// && philo->philo_id % 2 == 1)
+		if (philo->manager->nbr_philo %2 == 1 && philo->manager->nbr_philo % 2 == 1)// && philo->philo_id % 2 == 1)
 			odd_first_delay(philo);
 		if (exit_thread(philo))
 			return (NULL);
