@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
+/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/13 18:13:24 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/16 19:33:04 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	take_fork(t_philo *philo)
 {
+	// before taking a fork check if he is dead
 	if (philo->philo_id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_f);
+		// printf take fork
 		if (pthread_mutex_lock(philo->left_f) != 0)
 		{
 			pthread_mutex_unlock(philo->right_f);
