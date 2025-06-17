@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/17 15:08:59 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/17 19:35:56 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	odd_first_delay(t_philo *philo)
 	time_t	time_left_to_die;
 	time_left_to_die = philo->time_to_die - time_since_last_meal(philo);
 	if (time_left_to_die >= philo->time_to_eat * 1.5)
-		usleep(philo->time_to_eat * 1200);
+		usleep(philo->time_to_eat * 100);
 }
 
 void	one_philo_function(t_philo *philo)
@@ -97,11 +97,12 @@ void *routine(void *catch_philo)
 		one_philo_function(ph);
 	// if (ph->manager->nbr_philo %2 == 0 && ph->philo_id % 2 == 1)
 	// 	usleep(100);
-	if (ph->philo_id % 2 == 1)
-		usleep(100);
+	// this and
+	// if (ph->philo_id % 2 == 1)
+	// 	usleep(100);
 	while(!global_grim_dead_f(ph->manager) && !philo_meal_allowence(ph) && !philo_dead_f(ph))
 	{
-		if (ph->manager->nbr_philo % 2 == 1)// && ph->philo_id == 1)
+		if (ph->philo_id % 2 == 1)//this --> ph->manager->nbr_philo % 2 == 1)<--// && ph->philo_id % 2 == 1)
 			odd_first_delay(ph);
 		take_fork(ph);
 		if (exit_thread(ph))
