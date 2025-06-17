@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/16 22:28:22 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/17 15:08:59 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 int	take_fork(t_philo *philo)
 {
-	// before taking a fork check if he is dead
-	// check without it !!!
-	// if (exit_thread(philo))
-	// 	return (0);
 	if (philo->philo_id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_f);
@@ -84,29 +80,41 @@ void	odd_first_delay(t_philo *philo)
 		usleep(philo->time_to_eat * 1200);
 }
 
+void	one_philo_function(t_philo *philo)
+{
+	special_sleep(philo->time_to_die, philo);
+	pthread_mutex_lock(&philo->personal_mutex);
+	philo->phil_dead = 1;
+	pthread_mutex_unlock(&philo->personal_mutex);
+}
+
 void *routine(void *catch_philo)
 {
-	t_philo		*philo;
+	t_philo		*ph;
 
-	philo = (t_philo *)catch_philo;
-	if (philo->manager->nbr_philo %2 == 0 && philo->philo_id % 2 == 1)
+	ph = (t_philo *)catch_philo;
+	if (ph->manager->nbr_philo == 1)
+		one_philo_function(ph);
+	// if (ph->manager->nbr_philo %2 == 0 && ph->philo_id % 2 == 1)
+	// 	usleep(100);
+	if (ph->philo_id % 2 == 1)
 		usleep(100);
-	while(!global_grim_dead_f(philo->manager) && !philo_meal_allowence(philo))
+	while(!global_grim_dead_f(ph->manager) && !philo_meal_allowence(ph) && !philo_dead_f(ph))
 	{
-		if (philo->manager->nbr_philo %2 == 1 && philo->manager->nbr_philo % 2 == 1)// && philo->philo_id % 2 == 1)
-			odd_first_delay(philo);
-		if (exit_thread(philo))
+		if (ph->manager->nbr_philo % 2 == 1)// && ph->philo_id == 1)
+			odd_first_delay(ph);
+		take_fork(ph);
+		if (exit_thread(ph))
 			return (NULL);
-		take_fork(philo);
-		if (exit_thread(philo))
+		philo_eat(ph);
+		if (exit_thread(ph))
 			return (NULL);
-		philo_eat(philo);
-		if (exit_thread(philo))
+		philo_sleep(ph);
+		if (exit_thread(ph))
 			return (NULL);
-		philo_sleep(philo);
-		if (exit_thread(philo))
+		philo_think(ph);
+		if (exit_thread(ph))
 			return (NULL);
-		philo_think(philo);
 	}
 	return (NULL);
 }
