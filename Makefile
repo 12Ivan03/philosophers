@@ -17,7 +17,8 @@ SRC_FILES = ./main.c \
 			./get_time_of_day.c \
 			./printf_error.c \
 			./free/clear_mutex.c \
-			./get_info_mutex.c
+			./get_info_mutex.c \
+			./one_philo.c \
 
 
 OBJ_FILES = $(SRC_FILES:.c=.o)

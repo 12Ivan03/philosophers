@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/17 19:42:45 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/18 14:22:05 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,6 @@ void	philo_think(t_philo *philo)
 	usleep(200);
 }
 
-void	odd_first_delay(t_philo *philo)
-{
-	time_t	time_left_to_die;
-	time_left_to_die = philo->time_to_die - time_since_last_meal(philo);
-	if (time_left_to_die >= philo->time_to_eat * 1.5)
-		usleep(philo->time_to_eat * 100); //usleep(philo->time_to_eat * 1200);
-}
-
-void	one_philo_function(t_philo *philo)
-{
-	special_sleep(philo->time_to_die, philo);
-	pthread_mutex_lock(&philo->personal_mutex);
-	philo->phil_dead = 1;
-	pthread_mutex_unlock(&philo->personal_mutex);
-}
-
 void *routine(void *catch_philo)
 {
 	t_philo		*ph;
@@ -97,7 +81,7 @@ void *routine(void *catch_philo)
 		one_philo_function(ph);
 	// if (ph->manager->nbr_philo %2 == 0 && ph->philo_id % 2 == 1)
 	// 	usleep(100);
-	
+
 	// this and
 	// if (ph->philo_id % 2 == 1)
 	// 	usleep(100);
@@ -120,27 +104,3 @@ void *routine(void *catch_philo)
 	}
 	return (NULL);
 }
-
-// // odd numbers
-// void	odd_first_delay(t_philo *philo)
-// {
-// 	time_t	time_left_to_die;
-// 	time_left_to_die = philo->time_to_die - time_since_last_meal(philo);
-// 	if (time_left_to_die >= philo->time_to_eat * 1.5)
-// 		usleep(philo->time_to_eat * 1200);
-// }
-
-// pthread_mutex_lock(&philo->manager->printf);
-// printf("philo Id: %d\n",philo->philo_id);
-// printf("philo time to die: %d\n", philo->time_to_die);
-// printf("grim_man->dead: %d\n\n", grim_man->dead);
-// pthread_mutex_unlock(&philo->manager->printf);
-
-
-	// pthread_mutex_lock(&philo->manager->printf);
-	// printf("philo ID: %d: start eating time: %d\n\n",  philo->philo_id, philo->time_from_last_meal);
-	// pthread_mutex_unlock(&philo->manager->printf);
-
-	// pthread_mutex_lock(&philo->manager->printf);
-	// printf("philo ID: %d: left forks time: %ld\n\n",  philo->philo_id, philo->time_from_last_meal);
-	// pthread_mutex_unlock(&philo->manager->printf);

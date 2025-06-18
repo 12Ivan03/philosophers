@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:08:32 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/13 18:09:35 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/18 14:25:28 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ void			p_err(int i);
 int				philo_meal_allowence(t_philo *philo);
 void			special_sleep(time_t duration, t_philo *philo);
 void			printf_forks(t_philo *philo);
+void			odd_first_delay(t_philo *philo);
+void			one_philo_function(t_philo *philo);
 
 // get info functions
 int				global_grim_dead_f(t_manager *manager);

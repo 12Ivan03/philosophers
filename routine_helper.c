@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:32:26 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/13 18:16:08 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/18 14:42:43 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,7 @@ int	philo_meal_allowence(t_philo *philo)
 
 	if (philo->manager->num_of_meals != 0 && \
 		num_meals_philo == philo->manager->num_of_meals)
-	{
-		pthread_mutex_lock(&philo->manager->printf);
-		printf("%ld %d: finished %d meals\n", get_local_time(philo->manager), philo->philo_id, philo->num_of_meals);
-		pthread_mutex_unlock(&philo->manager->printf);
 		return (1);
-	}
 	return (0);
 }
 
@@ -58,4 +53,12 @@ void	special_sleep(time_t duration, t_philo *philo)
 			break ;
 		usleep(500);
 	}
+}
+
+void	odd_first_delay(t_philo *philo)
+{
+	time_t	time_left_to_die;
+	time_left_to_die = philo->time_to_die - time_since_last_meal(philo);
+	if (time_left_to_die >= philo->time_to_eat * 1.5)
+		usleep(philo->time_to_eat * 100); //usleep(philo->time_to_eat * 1200);
 }

@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:15 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/10 16:41:14 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/18 14:21:19 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ time_t	get_time(void)
 
 	gettimeofday(&get_time, NULL);
 	time = ((get_time.tv_sec * 1000) + (get_time.tv_usec / 1000));
-	// printf("TIME FROM TIME: %ld\n", time);
 	return (time);
 }
 
@@ -40,6 +39,5 @@ time_t	time_since_last_meal(t_philo *p)
 	last_meal_t = p->time_from_last_meal;
 	pthread_mutex_unlock(&p->personal_mutex);
 	time = get_time() - last_meal_t;
-	// printf("time_since_last_meal: %ld\n", time);
 	return (time);
 }
