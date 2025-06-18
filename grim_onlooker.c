@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:22 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/18 14:38:58 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/18 22:39:19 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void *grim_onlooker(void *manager)
 
 	i = 0;
 	grim = (t_manager *)manager;
-	while (!global_grim_dead_f(grim) && meal_allowence_grim_check(grim))
+	while (!global_grim_dead_f(grim))
 	{
 		i = 0;
-		while (i < grim->nbr_philo)
+		while (i < grim->nbr_philo)// && meal_allowence_grim_check(grim))
 		{
 			if (time_since_last_meal(&grim->arr_of_philos[i]) > grim->time_to_die)
 			{
@@ -78,6 +78,8 @@ void *grim_onlooker(void *manager)
 			}
 			i++;
 		}
+		if (meal_allowence_grim_check(grim))
+			return (NULL);
 		if (global_grim_dead_f(grim))//) == 1)
 			return (killer_funcion(grim), NULL);
 		usleep(100);
