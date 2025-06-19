@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:32:26 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/19 22:29:29 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/19 22:40:16 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void	odd_first_delay(t_philo *philo)
 	// time_left_to_die = philo->time_to_die - time_since_last_meal(philo);
 	// if (time_left_to_die >= philo->time_to_eat * 1.5)
 	// {
-	// 	pthread_mutex_lock(&philo->manager->printf);
-	// 	printf("qskjhfbasdkf kabdsf khabs hks \n");
-	// 	pthread_mutex_unlock(&philo->manager->printf);
+		// pthread_mutex_lock(&philo->manager->printf);
+		// printf("qskjhfbasdkf kabdsf khabs hks \n");
+		// pthread_mutex_unlock(&philo->manager->printf);
 	// 	usleep(delay * philo->philo_id); //usleep(philo->time_to_eat * 1200);
 	// }
 	// }

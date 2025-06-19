@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/19 22:33:12 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/19 22:45:46 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void *routine(void *catch_philo)
 	// if (ph->manager->nbr_philo % 2 == 0 && ph->philo_id % 2 == 1)
 	if (ph->philo_id % 2 == 1)
 		usleep(ph->philo_id * 1000 / 2);
+	// usleep(ph->time_to_eat * 1000 / 2);
 	// if (ph->philo_id % 2 == 0)
 	// 	usleep(300);
 	// this and
