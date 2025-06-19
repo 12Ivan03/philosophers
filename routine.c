@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/19 22:45:46 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/19 22:55:11 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ void *routine(void *catch_philo)
 	while(!global_grim_dead_f(ph->manager) && !philo_meal_allowence(ph) && !philo_dead_f(ph))
 	{
 		if (ph->philo_id % 2 == 1 && ph->manager->nbr_philo % 2 == 1) // <--// && ph->philo_id % 2 == 1)
-			odd_first_delay(ph);
+			usleep(ph->time_to_eat * 1000 / 2);
+			// odd_first_delay(ph);
 		take_fork(ph);
 		if (exit_thread(ph))
 			return (NULL);
