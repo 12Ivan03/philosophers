@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/18 14:22:05 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/19 20:27:03 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 
 int	take_fork(t_philo *philo)
 {
+	if (exit_thread(philo))
+			return (0);
+	// pthread_mutex_t *first, *second;
+    // if (philo->left_f < philo->right_f) {
+    //     first = philo->left_f;
+    //     second = philo->right_f;
+    // } else {
+    //     first = philo->right_f;
+    //     second = philo->left_f;
+    // }
+    // pthread_mutex_lock(first);
+    // printf_forks(philo);
+    // pthread_mutex_lock(second);
+    // printf_forks(philo);
+    // return 1;
 	if (philo->philo_id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_f);
@@ -66,10 +81,27 @@ void	philo_sleep(t_philo *philo)
 
 void	philo_think(t_philo *philo)
 {
+	// int	delay;
+
+	// if (philo->time_to_eat < philo->time_to_sleep)
+	// 	delay = philo->time_to_eat / 2;
+	// else
+		// delay = philo->time_to_sleep / 2;
 	pthread_mutex_lock(&philo->manager->printf);
 	printf("%ld %d is thinking\n", get_local_time(philo->manager),philo->philo_id);
 	pthread_mutex_unlock(&philo->manager->printf);
-	usleep(200);
+	// if (philo->philo_id == philo->manager->nbr_philo)
+	// 	return ;
+	// else
+	// if (philo->philo_id % 2 == 1)
+	// 	// usleep(100);
+	// 	usleep(delay);
+	// else if (philo->philo_id % 2 == 0)
+	// 	// usleep(100);
+	// 	usleep(delay);
+	// else
+		// usleep(100);
+		// usleep(philo->time_to_sleep);
 }
 
 void *routine(void *catch_philo)
@@ -79,15 +111,16 @@ void *routine(void *catch_philo)
 	ph = (t_philo *)catch_philo;
 	if (ph->manager->nbr_philo == 1)
 		one_philo_function(ph);
-	// if (ph->manager->nbr_philo %2 == 0 && ph->philo_id % 2 == 1)
-	// 	usleep(100);
-
+	if (ph->manager->nbr_philo % 2 == 0 && ph->philo_id % 2 == 1)
+		usleep(100 * ph->philo_id);
+	// if (ph->philo_id % 2 == 0)
+	// 	usleep(300);
 	// this and
 	// if (ph->philo_id % 2 == 1)
-	// 	usleep(100);
+	// 	usleep(300);
 	while(!global_grim_dead_f(ph->manager) && !philo_meal_allowence(ph) && !philo_dead_f(ph))
 	{
-		if (ph->philo_id % 2 == 1)//this --> ph->manager->nbr_philo % 2 == 1)<--// && ph->philo_id % 2 == 1)
+		if (ph->philo_id % 2 == 1 && ph->manager->nbr_philo % 2 == 1) // <--// && ph->philo_id % 2 == 1)
 			odd_first_delay(ph);
 		take_fork(ph);
 		if (exit_thread(ph))
@@ -101,6 +134,8 @@ void *routine(void *catch_philo)
 		philo_think(ph);
 		if (exit_thread(ph))
 			return (NULL);
+		if (get_local_time(ph->manager) > ph->time_to_die * 1.5)
+			usleep(100 * ph->philo_id);
 	}
 	return (NULL);
 }

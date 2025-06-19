@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:32:26 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/18 14:42:43 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/19 20:13:58 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,32 @@ void	special_sleep(time_t duration, t_philo *philo)
 	{
 		if (global_grim_dead_f(philo->manager) || philo_dead_f(philo))
 			break ;
-		usleep(500);
+		usleep(100);
 	}
 }
+
+// void	make_crazy_idea(t_philo *p)
+// {
+// 	if(p->philo_id == 1)
+// 		special_sleep(p->time_to_sleep / 2, p);
+// 	else if(p->philo_id % 2 == 0)
+// 		special_sleep(p->time_to_sleep / 2 + 100, p);
+// 	else if(p->philo_id % 2 == 1)
+// 		special_sleep(p->time_to_sleep / 2 + 50, p);
+// 	else
+// 		special_sleep(p->time_to_sleep / 2 + 10, p);
+// }
 
 void	odd_first_delay(t_philo *philo)
 {
 	time_t	time_left_to_die;
+
+	// if (philo->manager->nbr_philo < 20)
+	// 	make_crazy_idea(philo);
+	// else
+	// {
 	time_left_to_die = philo->time_to_die - time_since_last_meal(philo);
 	if (time_left_to_die >= philo->time_to_eat * 1.5)
-		usleep(philo->time_to_eat * 100); //usleep(philo->time_to_eat * 1200);
+		usleep(philo->time_to_sleep * philo->philo_id); //usleep(philo->time_to_eat * 1200);
+	// }
 }
