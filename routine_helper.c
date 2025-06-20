@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
+/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:32:26 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/18 14:42:43 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/20 19:53:50 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
