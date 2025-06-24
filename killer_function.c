@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_argv.c                                       :+:      :+:    :+:   */
+/*   killer_function.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 14:31:20 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/21 10:32:57 by ipavlov          ###   ########.fr       */
+/*   Created: 2025/06/21 12:40:25 by ipavlov           #+#    #+#             */
+/*   Updated: 2025/06/24 12:16:41 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	check_argv(int argc, char *argv[])
+int	killer_funcion(t_manager *grim)
 {
 	int	i;
 
-	i = 1;
-	if (argc < 5 || argc > 6)
+	i = 0;
+	while (i < grim->nbr_philo)
 	{
-		printf("incorrect input: time-die, time-eat, time-sleep, \
-			(optional)num-meals\n");
-		return (0);
-	}
-	while (argv[i])
-	{
-		if (!ft_isdigit(argv[i]) || !ft_atol(argv[i]))
-		{
-			printf("incorrect input: time-die, time-eat, time-sleep, \
-					(optional)num-meals\n");
-			return (0);
-		}
+		pthread_mutex_lock(&grim->arr_of_philos[i].personal_mutex);
+		grim->arr_of_philos[i].phil_dead = 1;
+		pthread_mutex_unlock(&grim->arr_of_philos[i].personal_mutex);
 		i++;
 	}
-	return (1);
+	return (0);
 }

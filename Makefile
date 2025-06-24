@@ -1,5 +1,6 @@
 CC = cc
 CFLAGS = -I./include -Wall -Wextra -Werror
+# -g -fsanitize=thread -pthread
 CLIB = -c
 
 BUILD_PATH = ./build
@@ -13,10 +14,13 @@ SRC_FILES = ./main.c \
 			./create_threads.c \
 			./routine.c \
 			./routine_helper.c \
+			./routine_helper_two.c \
 			./grim_onlooker.c \
+			./killer_function.c \
 			./get_time_of_day.c \
 			./printf_error.c \
-			./free/clear_mutex.c \
+			./clear_mutex.c \
+			./clear_mutex_helper.c \
 			./get_info_mutex.c \
 			./one_philo.c \
 

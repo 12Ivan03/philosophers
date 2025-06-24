@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   declaration_philosophers.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
+/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:04:33 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/13 16:08:30 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/21 12:35:40 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philosophers.h>
+#include "philosophers.h"
 
 void	init_philo(t_philo *arr_philo, t_manager *manager, int i)
 {
@@ -21,21 +21,21 @@ void	init_philo(t_philo *arr_philo, t_manager *manager, int i)
 	arr_philo->num_of_meals = manager->num_of_meals;
 	arr_philo->num_of_eaten_meals = 0;
 	arr_philo->phil_dead = manager->dead;
-	arr_philo->time_from_last_meal =  get_time();
+	arr_philo->time_from_last_meal = get_time();
 	arr_philo->left_f = &manager->forks[i];
 	arr_philo->right_f = &manager->forks[(i + 1) % manager->nbr_philo];
 	arr_philo->manager = manager;
 }
 
-int	init_personal_mutex_in_philo(t_manager *manager)
+int	init_personal_mutex_in_philo(t_manager *m)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < manager->nbr_philo)
+	while (i < m->nbr_philo)
 	{
-		if (pthread_mutex_init(&manager->arr_of_philos[i].personal_mutex, NULL) != 0)
-			return (clear_personal_mutexes(manager, i), 1);
+		if (pthread_mutex_init(&m->arr_of_philos[i].personal_mutex, NULL) != 0)
+			return (clear_personal_mutexes(m, i), 1);
 		i++;
 	}
 	return (0);
