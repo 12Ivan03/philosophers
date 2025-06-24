@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_mutex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
+/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:50:57 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/13 14:34:05 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/21 10:34:21 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philosophers.h>
+#include "philosophers.h"
 
 int	init_mutex(t_manager *manager)
 {

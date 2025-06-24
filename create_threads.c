@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   create_threads.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
+/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:40 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/13 16:30:02 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/21 12:00:27 by ipavlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philosophers.h>
+#include "philosophers.h"
 
 int	create_threads(t_manager *manager)
 {
@@ -21,7 +21,7 @@ int	create_threads(t_manager *manager)
 	n = manager->nbr_philo;
 	bodies = (pthread_t *)malloc(n * sizeof(pthread_t));
 	if (bodies == NULL)
-		return (clear_manager_and_philos(manager) ,0);
+		return (clear_manager_and_philos(manager), 0);
 	i = 0;
 	while (i < n)
 	{
