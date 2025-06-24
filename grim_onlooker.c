@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grim_onlooker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:22 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/24 19:10:36 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/25 00:20:19 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
