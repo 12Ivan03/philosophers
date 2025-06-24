@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_helper.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:32:26 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/24 19:04:41 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/24 23:49:32 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,15 @@ int	philo_meal_allowence(t_philo *philo)
 	pthread_mutex_lock(&philo->personal_mutex);
 	num_meals_philo = philo->num_of_eaten_meals;
 	pthread_mutex_unlock(&philo->personal_mutex);
+	// printf("%ld philo id %d: meal %d\n global: %d\n", get_time() - philo->manager->start_time, philo->philo_id, num_meals_philo, philo->manager->finished_meals_by_all);
 	if (philo->manager->num_of_meals != 0 && \
-		num_meals_philo == philo->manager->num_of_meals)
+			num_meals_philo == philo->manager->num_of_meals)
+	{
+		pthread_mutex_lock(&philo->manager->grim_mutex);
+		philo->manager->finished_meals_by_all++;
+		pthread_mutex_unlock(&philo->manager->grim_mutex);
 		return (1);
+	}
 	return (0);
 }
 

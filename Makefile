@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -I./include -Wall -Wextra -Werror 
+CFLAGS = -I./include -Wall -Wextra -Werror
 # -g -fsanitize=thread -pthread
 CLIB = -c
 

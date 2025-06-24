@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grim_onlooker.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:22 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/24 19:10:36 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/25 00:04:41 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ int	meal_allowence_grim_check(t_manager *grim)
 	pthread_mutex_lock(&grim->grim_mutex);
 	if (grim->num_of_meals == grim->finished_meals_by_all)
 	{
+		grim->dead = 1;
+		pthread_mutex_lock(&grim->printf);
+		printf("--> %ld all meals: %d\n", get_time() - grim->start_time, grim->finished_meals_by_all);
+		pthread_mutex_unlock(&grim->printf);
 		pthread_mutex_unlock(&grim->grim_mutex);
 		return (0);
 	}
@@ -74,9 +78,11 @@ void	*grim_onlooker(void *manager)
 				break ;
 			}
 			i++;
+			// meal_allowence_grim_check(grim);
+			// printf("come here much?\n");
+			if (meal_allowence_grim_check(grim) == 0)
+				return (NULL);
 		}
-		if (meal_allowence_grim_check(grim))
-			return (NULL);
 		usleep(100);
 	}
 	return (NULL);

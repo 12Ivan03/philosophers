@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_helper_two.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 11:35:54 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/24 19:00:30 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/25 00:06:16 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int	philo_eat(t_philo *p)
 	time_to_eat = get_time_to_eat(p);
 	pthread_mutex_lock(&p->personal_mutex);
 	p->time_from_last_meal = get_time();
-	p->num_of_eaten_meals++;
 	pthread_mutex_unlock(&p->personal_mutex);
 	print_messages(p, "is eating");
 	special_sleep(time_to_eat, p);
@@ -60,6 +59,9 @@ int	philo_eat(t_philo *p)
 		pthread_mutex_unlock(p->left_f);
 		pthread_mutex_unlock(p->right_f);
 	}
+	pthread_mutex_lock(&p->personal_mutex);
+	p->num_of_eaten_meals++;
+	pthread_mutex_unlock(&p->personal_mutex);
 	return (0);
 }
 
