@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_argv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:31:20 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/21 10:32:57 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/25 15:09:06 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_argv(int argc, char *argv[])
 	if (argc < 5 || argc > 6)
 	{
 		printf("incorrect input: time-die, time-eat, time-sleep, \
-			(optional)num-meals\n");
+				(optional)num-meals\n");
 		return (0);
 	}
 	while (argv[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   declaration_philosophers.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:04:33 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/21 12:35:40 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/25 15:12:45 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	init_personal_mutex_in_philo(t_manager *m)
 	while (i < m->nbr_philo)
 	{
 		if (pthread_mutex_init(&m->arr_of_philos[i].personal_mutex, NULL) != 0)
-			return (clear_personal_mutexes(m, i), 1);
+			return (p_err(3), clear_personal_mutexes(m, i), 1);
 		i++;
 	}
 	return (0);
@@ -48,7 +48,7 @@ int	declaration_philosophers(t_manager *manager)
 
 	arr_philo = (t_philo *)malloc(manager->nbr_philo * sizeof(t_philo));
 	if (arr_philo == NULL)
-		return (clean_full_manager(manager->forks, \
+		return (p_err(3), clean_full_manager(manager->forks, \
 				manager->nbr_philo - 1, manager), 0);
 	i = 0;
 	while (i < manager->nbr_philo)
