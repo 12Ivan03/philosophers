@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 11:35:54 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/25 00:06:16 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/25 14:15:00 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_messages(t_philo *p, char *str)
 	pthread_mutex_unlock(&p->manager->printf);
 }
 
-int	take_fork(t_philo *philo)
+void	take_fork(t_philo *philo)
 {
 	if (philo->philo_id % 2 == 0)
 	{
@@ -36,10 +36,9 @@ int	take_fork(t_philo *philo)
 		pthread_mutex_lock(philo->right_f);
 	}
 	print_messages(philo, "has taken a fork");
-	return (1);
 }
 
-int	philo_eat(t_philo *p)
+void	philo_eat(t_philo *p)
 {
 	time_t	time_to_eat;
 
@@ -62,7 +61,6 @@ int	philo_eat(t_philo *p)
 	pthread_mutex_lock(&p->personal_mutex);
 	p->num_of_eaten_meals++;
 	pthread_mutex_unlock(&p->personal_mutex);
-	return (0);
 }
 
 void	philo_sleep(t_philo *p)

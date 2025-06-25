@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ipavlov <ipavlov@student.codam.nl>         +#+  +:+       +#+        */
+/*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:08:32 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/21 12:54:43 by ipavlov          ###   ########.fr       */
+/*   Updated: 2025/06/25 14:16:34 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,13 @@ void			free_all(t_manager *manager);
 // error handler
 void			p_err(int i);
 // routine helper functions
-int				philo_meal_allowence(t_philo *philo);
+void			philo_meal_allowence(t_philo *philo);
 void			special_sleep(time_t duration, t_philo *philo);
 void			printf_forks(t_philo *philo);
 void			odd_first_delay(t_philo *philo);
 void			one_philo_function(t_philo *philo);
-int				take_fork(t_philo *philo);
-int				philo_eat(t_philo *philo);
+void			take_fork(t_philo *philo);
+void			philo_eat(t_philo *philo);
 void			philo_sleep(t_philo *philo);
 void			philo_think(t_philo *philo);
 // get info functions

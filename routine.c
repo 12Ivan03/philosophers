@@ -6,19 +6,18 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:31 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/25 00:11:33 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/25 14:15:16 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	gorge_oneself(t_philo *ph)
+void	gorge_oneself(t_philo *ph)
 {
 	take_fork(ph);
 	philo_eat(ph);
 	philo_sleep(ph);
 	philo_think(ph);
-	return (0);
 }
 
 void	staggering_meassures(t_philo *ph)
@@ -45,11 +44,11 @@ void	*routine(void *catch_philo)
 		one_philo_function(ph);
 	if (ph->manager->nbr_philo % 2 == 1 && ph->philo_id % 2 == 1)
 		usleep(ph->philo_id * 1000 / 2);
-	while (!global_grim_dead_f(ph->manager) && \
-			!philo_meal_allowence(ph) && !philo_dead_f(ph))
+	while (!global_grim_dead_f(ph->manager) && !philo_dead_f(ph))
 	{
 		staggering_meassures(ph);
 		gorge_oneself(ph);
+		philo_meal_allowence(ph);
 	}
 	return (NULL);
 }

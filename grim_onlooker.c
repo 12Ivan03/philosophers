@@ -6,20 +6,11 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 10:47:22 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/25 13:49:03 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/25 14:11:12 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	grim_print_messages(t_manager *m, int num, char *str)
-{
-	if (chekc_if_philo_dead(m))
-		return ;
-	pthread_mutex_lock(&m->printf);
-	printf("%ld %d %s\n", get_local_time(m), num, str);
-	pthread_mutex_unlock(&m->printf);
-}
 
 int	chekc_if_philo_dead(t_manager *grim)
 {
@@ -42,17 +33,15 @@ void	raise_philo_dead_flag(t_philo *p)
 
 int	meal_allowence_grim_check(t_manager *grim)
 {
-	// printf("------------> here\n");
 	pthread_mutex_lock(&grim->grim_mutex);
-	if (grim->num_of_meals != 0 && (grim->num_of_meals == grim->finished_meals_by_all))
+	if (grim->nbr_philo == grim->finished_meals_by_all)
 	{
-		// grim->dead = 1;
-		// grim_print_messages(grim, 500, "all meals finished: ");
-		pthread_mutex_lock(&grim->printf);
-		printf("%ld all meals finished: %d\n", get_time() - grim->start_time, \
-													grim->finished_meals_by_all);
-		pthread_mutex_unlock(&grim->printf);
+		grim->dead = 1;
 		pthread_mutex_unlock(&grim->grim_mutex);
+		killer_funcion(grim);
+		pthread_mutex_lock(&grim->printf);
+		printf("%ld all meals finished\n", get_time() - grim->start_time);
+		pthread_mutex_unlock(&grim->printf);
 		return (0);
 	}
 	pthread_mutex_unlock(&grim->grim_mutex);
@@ -64,7 +53,6 @@ void	terminalte(t_manager *grim, int i)
 	pthread_mutex_lock(&grim->grim_mutex);
 	grim->dead = 1;
 	pthread_mutex_unlock(&grim->grim_mutex);
-	// grim_print_messages(grim, i + 1, "dead");
 	pthread_mutex_lock(&grim->printf);
 	printf("%ld %d dead\n", get_time() - grim->start_time, i + 1);
 	pthread_mutex_unlock(&grim->printf);
@@ -82,12 +70,9 @@ void	*grim_onlooker(void *manager)
 	while (!global_grim_dead_f(grim))
 	{
 		i = 0;
-		while (i < grim->nbr_philo)
+		while (i < grim->nbr_philo && meal_allowence_grim_check(grim))
 		{
-			// if (!meal_allowence_grim_check(grim))
-			// 	return (NULL);
-			if (meal_allowence_grim_check(grim) && \
-				time_since_last_meal(&grim->arr_of_philos[i]) > \
+			if (time_since_last_meal(&grim->arr_of_philos[i]) > \
 				grim->time_to_die)
 			{
 				terminalte(grim, i);

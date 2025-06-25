@@ -6,7 +6,7 @@
 /*   By: penchoivanov <penchoivanov@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:32:26 by ipavlov           #+#    #+#             */
-/*   Updated: 2025/06/25 13:22:08 by penchoivano      ###   ########.fr       */
+/*   Updated: 2025/06/25 14:14:28 by penchoivano      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	printf_forks(t_philo *philo)
 	pthread_mutex_unlock(&philo->manager->printf);
 }
 
-int	philo_meal_allowence(t_philo *philo)
+void	philo_meal_allowence(t_philo *philo)
 {
 	int	num_meals_philo;
 
@@ -33,12 +33,9 @@ int	philo_meal_allowence(t_philo *philo)
 				num_meals_philo == philo->manager->num_of_meals)
 	{
 		pthread_mutex_lock(&philo->manager->grim_mutex);
-		// printf("%ld philo id %d: meal %d\n global: %d\n", get_time() - philo->manager->start_time, philo->philo_id, num_meals_philo, philo->manager->finished_meals_by_all);
 		philo->manager->finished_meals_by_all++;
 		pthread_mutex_unlock(&philo->manager->grim_mutex);
-		return (1);
 	}
-	return (0);
 }
 
 int	exit_thread(t_philo *philo)
